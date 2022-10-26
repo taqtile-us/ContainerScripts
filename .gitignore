@@ -1,0 +1,4 @@
+/.env
+/certs
+/uploads
+.DS_Store
