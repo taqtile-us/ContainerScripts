@@ -5,7 +5,7 @@ volumes:
   shared:
 services:
   api:
-    image: taqtile.azurecr.io/manifest-api-production-2.5:04a08918e
+    image: taqtile.azurecr.io/manifest-api-production:93caf9874 
     depends_on:
       - dbpostgres
     ports:
@@ -22,7 +22,7 @@ services:
     environment:
       DATABASESERVER_PORT: "5432"
       DATABASESERVER_HOST: "dbpostgres"
-      NODE_ENV: ${NODE_ENV}
+      NODE_ENV: "localhost"
       IP_ACCESS: ${IP_ACCESS}
       ADMIN_EMAIL: ${ADMIN_EMAIL}
       ADMIN_PASSWORD: ${ADMIN_PASSWORD}
@@ -39,7 +39,7 @@ services:
       - POSTGRES_PASSWORD=dnhrfw2ufbbto3!mritbfwl
       - POSTGRES_DB=manifestmain
   web:
-    image: taqtile.azurecr.io/manifest-web-production-2.5:58fcf850b
+    image: taqtile.azurecr.io/manifest-web-production:dbc64604a
     depends_on:
       - api
     volumes:
@@ -51,7 +51,7 @@ services:
       - "80:80"
       - "443:443"
     environment:
-      - NGINX_HOST=${NODE_ENV}
+      - NGINX_HOST=localhost
       - NGINX_PORT=80
       - IP_ACCESS=${IP_ACCESS}
       - env=on-prem
@@ -89,7 +89,7 @@ services:
     image: docker.io/bitnami/redis:6.2
     environment:
       - ALLOW_EMPTY_PASSWORD=yes
-      - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
+      - REDIS_DISABLE_COMMANDS=FLUSHDB
     ports:
       - '6379:6379'
     volumes:
