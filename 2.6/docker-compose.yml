@@ -17,7 +17,7 @@ services:
     links:
       - dbpostgres
     volumes:
-      - ${FILE_PATH}/uploads:/uploads
+      - ${PATH_TO_MANIFEST_FOLDER}/uploads:/uploads
       - shared:/shared
     environment:
       DATABASESERVER_PORT: "5432"
@@ -43,9 +43,9 @@ services:
     depends_on:
       - api
     volumes:
-      - ${FILE_PATH}/uploads:/usr/share/nginx/html/uploads
-      - ${FILE_PATH}/certs:/etc/ssl/private/
-      - ${FILE_PATH}/certs:/etc/ssl/certs
+      - ${PATH_TO_MANIFEST_FOLDER}/uploads:/usr/share/nginx/html/uploads
+      - ${PATH_TO_MANIFEST_FOLDER}/certs:/etc/ssl/private/
+      - ${PATH_TO_MANIFEST_FOLDER}/certs:/etc/ssl/certs
       - shared:/shared
     ports:
       - "80:80"
@@ -65,7 +65,7 @@ services:
   converter:
     image: taqtile.azurecr.io/manifest-3dconverter-distributed:latest
     volumes:
-      - ${FILE_PATH}/uploads:/manifest-cs/folder
+      - ${PATH_TO_MANIFEST_FOLDER}/uploads:/manifest-cs/folder
     ports:
       - "5555"
     expose:
@@ -79,7 +79,7 @@ services:
           cpus: '1'
           memory: 6000M
     volumes:
-      - ${FILE_PATH}/uploads:/VideoEditor/uploads/
+      - ${PATH_TO_MANIFEST_FOLDER}/uploads:/VideoEditor/uploads/
     ports:
       - "7172"
     expose:
